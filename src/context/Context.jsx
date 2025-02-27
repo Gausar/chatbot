@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useRef } from "react";
 import runChat from "../config/gemini";
 
 export const Context = createContext();
@@ -11,6 +11,29 @@ const ContextProvider = (props) => {
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
     const [resultData, setResultData] = useState("");
+    const [file, setFile] = useState(null);
+    const fileInputRef = useRef(null);
+    const [fileURL, setFileURL] = useState(null);
+
+    const handleFileChange = (event) => {
+        if (event.target.files.length > 0) {
+            const selectedFile = event.target.files[0];
+            setFile(selectedFile);
+            const previewURL = URL.createObjectURL(selectedFile);
+            setFileURL(previewURL);
+            setInput((prevInput) => prevInput);
+            console.log("Selected File:", selectedFile);
+        }
+    };
+
+    const handleIconClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const removeImage = () => {
+        setFile(null);
+        setFileURL(null);
+    };
 
     const delayPara = (index, nextWord) => {
         setTimeout(function (){
@@ -61,8 +84,6 @@ const ContextProvider = (props) => {
         setInput("")
     }
 
-    // onSent("What is ML?");
-
     const contextValue = {
         prevPrompts,
         setPrevPrompts,
@@ -75,6 +96,12 @@ const ContextProvider = (props) => {
         input,
         setInput,
         newChat,
+        file, 
+        fileURL, 
+        handleFileChange, 
+        handleIconClick, 
+        fileInputRef, 
+        removeImage
     }
     return (
         <Context.Provider value={contextValue}>

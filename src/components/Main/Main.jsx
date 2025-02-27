@@ -4,8 +4,7 @@ import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 
 const Main = () => {
-    const {onSent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(Context);
-
+    const {onSent, recentPrompt, showResult, loading, resultData, setInput, input, fileURL, handleFileChange, handleIconClick, fileInputRef, removeImage} = useContext(Context);
     return (
         <div className="main">
             <div className="nav">
@@ -64,10 +63,25 @@ const Main = () => {
 
                 <div className="main-bottom">
                     <div className="search-box">
+                        {fileURL && (
+                            <div className="image-preview">
+                                <img src={fileURL} alt="Uploaded" />
+                                <button className="remove-btn" onClick={removeImage}>❌</button>
+                            </div>
+                        )}
                         <input onChange={(e)=> setInput(e.target.value)} value={input} type="text" placeholder="Асуултаа энд бичнэ үү?" />
                         <div>
-                            <img src={assets.gallery_icon} alt="" />
-                            <img src={assets.mic_icon} alt="" />
+                            <label onClick={handleIconClick}>
+                                    <img src={assets.gallery_icon} alt="Upload" />
+                            </label>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                accept="image/*"
+                                style={{ display: "none" }}
+                                onChange={handleFileChange}
+                            />
+                            <img  src={assets.mic_icon} alt="" />
                             {input?<img onClick={()=>onSent()} src={assets.send_icon} alt="" />:null}
                         </div>
                     </div>
