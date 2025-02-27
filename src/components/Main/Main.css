@@ -21,7 +21,7 @@
     margin: auto;
 }
 .main .greet {
-    margin: 50px 0px;
+    margin: 20px 0px;
     font-size: 56px;
     color: #c4c7c5;
     font-weight: 500;
@@ -37,6 +37,7 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
     padding: 20px;
+    margin-bottom: 50px;
 }
 
 .main .card {
@@ -81,6 +82,7 @@
     background-color: #f0f4f9;
     padding: 10px 20px;
     border-radius: 50px;
+    margin-top: 30px;
 }
 .search-box img {
     width: 24px;
