@@ -180,4 +180,15 @@
     .search-box div {
         gap: 5px;
     }
+    main .greet {
+        margin: 5px 0px;
+        padding: 10px;
+        font-size: 18px;
+    }
+    .main .card {
+        height: 100px;
+    }
+    .main .greet p {
+        font-size: 24px;
+    }
 }
