@@ -5,11 +5,13 @@ import { Context } from "../../context/Context";
 
 const Sidebar = () => {
     const [extended, setExtended] = useState(false);
-    const {onSent, prevPrompts, setRecentPrompt, newChat} = useContext(Context);
+    const {onSent, prevPrompts, prevResponses, setResultData, setShowResult, setRecentPrompt, newChat} = useContext(Context);
 
     const loadPrompt = async (prompt) => {
         setRecentPrompt(prompt);
-        await onSent(prompt);
+        // await onSent(prompt);
+        setResultData(prevResponses[prompt] || "No previous response found.");
+        setShowResult(true);
     }
 
     return (

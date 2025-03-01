@@ -80,7 +80,13 @@ const Main = () => {
                                 accept="image/*"
                                 style={{ display: "none" }}
                                 onChange={handleFileChange}
-                            />
+                                // onKeyDown={(e) => {
+                                //     if (e.key === "Enter" && !e.shiftKey) {
+                                //         e.preventDefault();
+                                //         onSent();
+                                //     }
+                                // }}
+                                />
                             <img  src={assets.mic_icon} alt="" />
                             {input?<img onClick={()=>onSent()} src={assets.send_icon} alt="" />:null}
                         </div>

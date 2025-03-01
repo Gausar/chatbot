@@ -14,6 +14,8 @@ const ContextProvider = (props) => {
     const [file, setFile] = useState(null);
     const fileInputRef = useRef(null);
     const [fileURL, setFileURL] = useState(null);
+    const [prevResponses, setPrevResponses] = useState({});
+    const [chatHistory, setChatHistory] = useState([]);
 
     const handleFileChange = (event) => {
         if (event.target.files.length > 0) {
@@ -80,6 +82,12 @@ const ContextProvider = (props) => {
             const nextWord = newResponseArray[i];
             delayPara(i, nextWord+" ")
         }
+
+        setPrevResponses(prev => ({
+            ...prev,
+            [prompt || input]: newResponse2
+        }));
+        // setChatHistory(prev => [...prev, { question: prompt, answer: response }]);
         setLoading(false)
         setInput("")
     }
@@ -101,7 +109,10 @@ const ContextProvider = (props) => {
         handleFileChange, 
         handleIconClick, 
         fileInputRef, 
-        removeImage
+        removeImage,
+        prevResponses,
+        setResultData,
+        setShowResult
     }
     return (
         <Context.Provider value={contextValue}>
