@@ -16,6 +16,11 @@ const ContextProvider = (props) => {
     const [fileURL, setFileURL] = useState(null);
     const [prevResponses, setPrevResponses] = useState({});
     const [chatHistory, setChatHistory] = useState([]);
+    const [darkMode, setDarkMode] = useState(false);
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
     const handleFileChange = (event) => {
         if (event.target.files.length > 0) {
@@ -49,7 +54,7 @@ const ContextProvider = (props) => {
     }
 
     const onSent = async (prompt) => {
-        setResultData("")
+        // setResultData("")
         setLoading(true)
         setShowResult(true)
         let response;
@@ -87,6 +92,10 @@ const ContextProvider = (props) => {
             ...prev,
             [prompt || input]: newResponse2
         }));
+        setChatHistory((prev) => [
+            ...prev,
+            { question: prompt || input, answer: newResponse2}
+        ]);
         // setChatHistory(prev => [...prev, { question: prompt, answer: response }]);
         setLoading(false)
         setInput("")
@@ -112,7 +121,9 @@ const ContextProvider = (props) => {
         removeImage,
         prevResponses,
         setResultData,
-        setShowResult
+        setShowResult,
+        darkMode, 
+        toggleDarkMode
     }
     return (
         <Context.Provider value={contextValue}>
